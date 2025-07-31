@@ -50,9 +50,28 @@ function showLetter() {
         i++;
         setTimeout(typeWriter, 60);
       } else {
-        setTimeout(() => {
-          signature.style.opacity = 1;
-        }, 1000);
+        // --- MULAI PERUBAHAN DI SINI ---
+        const gallery = document.getElementById("photoGallery");
+        gallery.style.display = "flex";
+
+        const photos = gallery.querySelectorAll("img");
+        let photoIndex = 0;
+
+        function showNextPhoto() {
+          if (photoIndex < photos.length) {
+            const photo = photos[photoIndex];
+            photo.style.opacity = 1;
+            photo.style.transform = "scale(1)";
+            photoIndex++;
+            setTimeout(showNextPhoto, 400);
+          } else {
+            setTimeout(() => {
+              signature.style.opacity = 1;
+            }, 500);
+          }
+        }
+        showNextPhoto();
+        // --- AKHIR PERUBAHAN ---
       }
     }
 
