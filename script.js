@@ -1,7 +1,23 @@
 const signature = document.querySelector(".signature");
 signature.style.opacity = 0;
 
-const message = `I don’t even know if you’ll ever read this.\nBut if you do… I just want you to know, I still think about you sometimes.\n\nWe both tried. We both cared. But the universe just never gave us enough space to become “us.”\n\nI just wonder… if we had met at a different point in life, would the ending have been different?\n\nAnyway, I hope you're doing okay, even though we’re not in each other’s lives anymore.\ni miss you, us, myself when us together..\n\ni hope you happy because your happpiness also my happiness.\ni wish you and i can together in another universe.. or in another time once again.\n\nI LOVE YOU AYUDYA SAFITRI\n\n~ BAGAS NURDIANSYAH`;
+const message = `I don’t even know if you’ll ever read this.
+But if you do… I want you to know that I still think about you sometimes.
+
+We both tried. We both cared. But the universe just never gave us the space to become “us.”
+
+I often wonder… if we had met at a different time in our lives, would the ending have been different?
+
+Anyway, I hope you’re doing well, even though we're no longer in each other's lives.
+
+I miss you. I miss "us"—what we were. And I miss the person I was when we were together.
+
+I hope you're happy, because your happiness is my happiness too.
+I wish we could be together again, maybe in another universe, or in another life.
+
+I LOVE YOU AYUDYA SAFITRI
+
+~ BAGAS NURDIANSYAH`;
 
 function showLetter() {
   const audio = document.getElementById("backgroundMusic");
@@ -26,8 +42,8 @@ function showLetter() {
 
     function typeWriter() {
       if (i < message.length) {
-        if (message.charAt(i) === '\n') {
-          typedText.innerHTML += '<br>';
+        if (message.charAt(i) === "\n") {
+          typedText.innerHTML += "<br>";
         } else {
           typedText.innerHTML += message.charAt(i);
         }
