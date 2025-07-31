@@ -11,9 +11,10 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh; /* Lebih baik ganti ke min-height */
+  height: auto;
   flex-direction: column;
-  overflow: hidden;
+  overflow-y: auto; /* <--- UBAH MENJADI INI */
 }
 
 .intro {
