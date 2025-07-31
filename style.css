@@ -11,10 +11,10 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh; /* Lebih baik ganti ke min-height */
+  min-height: 100vh;
   height: auto;
   flex-direction: column;
-  overflow-y: auto; /* <--- UBAH MENJADI INI */
+  overflow-y: auto;
 }
 
 .intro {
@@ -106,13 +106,13 @@ body {
 
   .letter {
     width: 100%;
-    padding: 25px 25px 25px 50px;
+    padding: 40px 25px 25px 50px;
     min-height: 80vh;
     font-size: 1rem;
   }
   
   .letter p {
-    margin-top: -30px;
+    margin-top: 0;
   }
 
   .signature {
