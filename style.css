@@ -150,3 +150,19 @@ body {
   transform: scale(0.9);
   transition: opacity 0.8s ease, transform 0.8s ease;
 }
+.cta-link {
+  display: block;
+  width: fit-content;
+  margin: 30px auto;
+  padding: 12px 25px;
+  background-color: #434c5e;
+  color: #fff;
+  text-decoration: none;
+  font-family: sans-serif;
+  border-radius: 25px;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  transform: translateY(10px);
+}
