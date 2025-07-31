@@ -47,7 +47,7 @@ body {
   border-radius: 10px;
   width: 80%;
   max-width: 500px;
-  height: 600px;
+  height: 800px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
   font-size: 1.1rem;
   line-height: 1.6;
@@ -80,7 +80,7 @@ body {
   bottom: -20px;
   right: 6px;
   width: 180px;
-  opacity: 0.9;
   pointer-events: none;
   transform: rotate(-2deg);
+  transition: opacity 2s ease-in-out;
 }
