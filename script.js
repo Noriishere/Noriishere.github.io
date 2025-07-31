@@ -50,7 +50,6 @@ function showLetter() {
         i++;
         setTimeout(typeWriter, 60);
       } else {
-        // --- MULAI PERUBAHAN DI SINI ---
         const gallery = document.getElementById("photoGallery");
         gallery.style.display = "flex";
 
@@ -65,13 +64,21 @@ function showLetter() {
             photoIndex++;
             setTimeout(showNextPhoto, 400);
           } else {
+            // --- MULAI PERUBAHAN DI SINI ---
+            const link = document.getElementById("descriptionLink");
+            setTimeout(() => {
+              link.style.opacity = 1;
+              link.style.pointerEvents = "auto";
+              link.style.transform = "translateY(0)";
+            }, 500);
+
             setTimeout(() => {
               signature.style.opacity = 1;
-            }, 500);
+            }, 1200); // Tunda tanda tangan lebih lama
+            // --- AKHIR PERUBAHAN ---
           }
         }
         showNextPhoto();
-        // --- AKHIR PERUBAHAN ---
       }
     }
 
