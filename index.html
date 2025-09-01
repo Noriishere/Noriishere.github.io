@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <title>A Letter for You ayashiii</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Georgia", serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            height: auto;
+            flex-direction: column;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        /* Music control button */
+        .music-control {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            color: white;
+            font-size: 1.5rem;
+            display: none;
+        }
+
+        .music-control:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+
+        .music-control.playing {
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 107, 157, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 107, 157, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 107, 157, 0); }
+        }
+
+        /* Floating petals animation */
+        .petal {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(ellipse at center, #ff6b9d 0%, #c44569 100%);
+            border-radius: 50% 0 50% 0;
+            animation: float 8s infinite linear;
+            opacity: 0.7;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .intro {
+            text-align: center;
+            font-size: 1.6rem;
+            margin-bottom: 30px;
+            opacity: 1;
+            transition: opacity 1s ease;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            font-style: italic;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            background: linear-gradient(45deg, #ff6b9d, #feca57);
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            color: white;
+            transition: 0.3s;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.3);
+        }
+
+        .letter {
+            display: none;
+            background: linear-gradient(135deg, #ffeef8 0%, #fff5f5 50%, #fdf2f8 100%);
+            color: #2d2d2d;
+            padding: 40px;
+            border-radius: 20px;
+            width: 85%;
+            max-width: 600px;
+            min-height: 700px;
+            height: auto;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            font-size: 1.1rem;
+            line-height: 1.9;
+            text-align: left;
+            position: relative;
+            white-space: pre-wrap;
+            overflow-wrap: break-word;
+            font-family: "Times New Roman", Georgia, serif;
+            overflow-y: auto;
+            border: 3px solid #ff6b9d;
+        }
+
+        /* Floral border decoration */
+        .letter::before {
+            content: "🌸 🌺 🌸 🌺 🌸 🌺 🌸 🌺 🌸 🌺";
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.5rem;
+            opacity: 0.6;
+        }
+
+        .letter::after {
+            content: "🌺 🌸 🌺 🌸 🌺 🌸 🌺 🌸 🌺 🌸";
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.5rem;
+            opacity: 0.6;
+        }
+
+        .letter p {
+            margin-top: 0;
+            overflow: visible;
+        }
+
+        .signature {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 1.3rem;
+            color: #c44569;
+            font-weight: bold;
+            transform: rotate(-2deg);
+            transition: opacity 2s ease-in-out;
+            font-style: italic;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 0 15px;
+            }
+            .intro {
+                font-size: 1.3rem;
+            }
+            .letter {
+                width: 95%;
+                padding: 30px 25px;
+                min-height: 80vh;
+                font-size: 1.1rem;
+                line-height: 1.7;
+            }
+            .signature {
+                font-size: 1.1rem;
+                bottom: 15px;
+                right: 15px;
+            }
+            .music-control {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+        }
+
+        .photo-gallery {
+            display: none;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px 0;
+            padding: 20px 0;
+            position: relative;
+        }
+
+        .photo-gallery img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 5px solid #ff6b9d;
+            box-shadow: 0 8px 16px rgba(255, 107, 157, 0.3);
+            opacity: 0;
+            transform: scale(0.8) rotate(-5deg);
+            transition: opacity 1s ease, transform 1s ease;
+            cursor: move; /* Menunjukkan bahwa gambar bisa di-drag */
+            position: relative; /* Awalnya relatif, akan berubah ke absolut saat di-drag */
+            z-index: 10;
+        }
+
+        .photo-gallery img:nth-child(2) {
+            transform: scale(0.8) rotate(3deg);
+        }
+
+        .photo-gallery img:nth-child(3) {
+            transform: scale(0.8) rotate(-8deg);
+        }
+
+        .photo-gallery img.dragging {
+            position: absolute;
+            transform: none !important; /* Menghapus rotasi saat di-drag */
+            opacity: 0.9;
+            z-index: 100;
+        }
+
+        .cta-link {
+            display: block;
+            width: fit-content;
+            margin: 30px auto;
+            padding: 15px 30px;
+            background: linear-gradient(45deg, #ff6b9d, #c44569);
+            color: #fff;
+            text-decoration: none;
+            font-family: sans-serif;
+            border-radius: 30px;
+            text-align: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            transform: translateY(20px);
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .heart {
+            color: #ff6b9d;
+            font-size: 1.3em;
+            animation: heartbeat 1.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes heartbeat {
+            to {
+                transform: scale(1.1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Music control button -->
+    <div class="music-control" id="musicControl" onclick="toggleMusic()">
+        <span id="musicIcon">🎵</span>
+    </div>
+
+    <!-- Hidden audio element -->
+    <audio id="backgroundMusic" loop preload="auto">
+        <source src="sempurna.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <div class="intro" id="introText">
+        There's something magical I need to tell you... 🌸
+    </div>
+    <button class="btn" onclick="showLetter()">Open My Heart</button>
+    
+    <div class="letter" id="letterBox">
+        <p id="typedText"></p>
+        
+        <div class="photo-gallery" id="photoGallery">
+            <img src="1.jpg" alt="Beautiful 1">
+            <img src="2.jpg" alt="Beautiful 2">
+            <img src="3.jpg" alt="Beautiful 3">
+        </div>
+        
+        <a href="deskripsi.html" class="cta-link" id="descriptionLink" onclick="showMessage()">
+        💕 CLICK HERE 💕
+        </a>
+        
+        <div class="signature" id="signature" style="opacity: 0;">
+            With all my love 💖<br>
+            This present is for youuu!!!!
+        </div>
+    </div>
+
+    <script>
+    const backgroundMusic = document.getElementById('backgroundMusic');
+    const musicControl = document.getElementById('musicControl');
+    const musicIcon = document.getElementById('musicIcon');
+    let isMusicPlaying = false;
+
+    // Debugging untuk memeriksa status pemuatan audio
+    backgroundMusic.addEventListener('loadeddata', () => {
+        console.log('Audio file loaded successfully');
+    });
+    backgroundMusic.addEventListener('error', (e) => {
+        console.error('Error loading audio file:', e);
+    });
+
+    // Atur volume audio
+    backgroundMusic.volume = 1.0;
+
+    // Create floating petals
+    function createPetal() {
+        const petal = document.createElement('div');
+        petal.classList.add('petal');
+        petal.style.left = Math.random() * 100 + '%';
+        petal.style.animationDelay = Math.random() * 3 + 's';
+        petal.style.animationDuration = (Math.random() * 3 + 5) + 's';
+        document.body.appendChild(petal);
+
+        setTimeout(() => {
+            petal.remove();
+        }, 8000);
+    }
+
+    // Create petals continuously
+    setInterval(createPetal, 300);
+
+    // Fungsi untuk mengontrol musik
+    function toggleMusic() {
+        if (!isMusicPlaying) {
+            backgroundMusic.play().then(() => {
+                musicControl.classList.add('playing');
+                musicIcon.textContent = '🔊';
+                isMusicPlaying = true;
+                console.log('Music started playing');
+            }).catch(e => {
+                console.error('Error playing music:', e);
+            });
+        } else {
+            backgroundMusic.pause();
+            musicControl.classList.remove('playing');
+            musicIcon.textContent = '🔇';
+            isMusicPlaying = false;
+            console.log('Music paused');
+        }
+    }
+
+    const message = `My Dearest Cool & Beautiful Ayashiii,
+
+Every time I look at you, I get caught between awe and admiration. You have that rare kind of beauty that doesn’t just stop at appearances it’s in the way you carry yourself, with confidence so natural yet so captivating.
+
+Your smile? Stunning. Your gaze? Sharp, yet warm enough to melt away the coldest silence. There’s a cool aura about you, like you know exactly who you are and don’t need the world’s validation and honestly, that makes you even more irresistible.
+
+And then there’s “akusikma.” The way you say it feels like a signature, a mark that’s completely yours. It’s not just a word anymore it’s you: cool, beautiful, and unforgettable.
+
+What amazes me most isn’t just your beauty, but the effortless balance you hold you’re calm yet striking, elegant yet approachable. Every moment with you feels like I’m standing in the presence of someone rare, someone truly unforgettable.
+
+To me, you’re not just cool and beautiful you’re Sikma. A one of a kind soul that I wouldn’t trade for anything in this world.
+
+♥`;
+
+    function showLetter() {
+        const introText = document.getElementById("introText");
+        const readButton = document.querySelector(".btn");
+
+        introText.style.opacity = 0;
+        readButton.style.opacity = 0;
+
+        setTimeout(() => {
+            introText.style.display = "none";
+            readButton.style.display = "none";
+            musicControl.style.display = "flex"; // Tampilkan tombol musik
+        }, 1000);
+
+        setTimeout(() => {
+            const letterBox = document.getElementById("letterBox");
+            const typedText = document.getElementById("typedText");
+            letterBox.style.display = "block";
+
+            // Putar musik saat surat ditampilkan
+            if (!isMusicPlaying) {
+                toggleMusic();
+            }
+
+            let i = 0;
+            function typeWriter() {
+                if (i < message.length) {
+                    if (message.charAt(i) === "\n") {
+                        typedText.innerHTML += "<br>";
+                    } else {
+                        typedText.innerHTML += message.charAt(i);
+                    }
+                    i++;
+                    setTimeout(typeWriter, 10);
+                } else {
+                    showPhotos();
+                }
+            }
+            typeWriter();
+        }, 1200);
+    }
+
+    function showPhotos() {
+        const gallery = document.getElementById("photoGallery");
+        gallery.style.display = "flex";
+
+        const photos = gallery.querySelectorAll("img");
+        let photoIndex = 0;
+
+        function showNextPhoto() {
+            if (photoIndex < photos.length) {
+                const photo = photos[photoIndex];
+                photo.style.opacity = 1;
+                photo.style.transform = "scale(1) rotate(0deg)";
+                // Tambahkan event listener untuk drag setelah animasi selesai
+                setTimeout(() => {
+                    makeDraggable(photo);
+                }, 1000);
+                photoIndex++;
+                setTimeout(showNextPhoto, 600);
+            } else {
+                showFinalElements();
+            }
+        }
+        showNextPhoto();
+    }
+
+    function showFinalElements() {
+        const link = document.getElementById("descriptionLink");
+        const signature = document.getElementById("signature");
+
+        setTimeout(() => {
+            link.style.opacity = 1;
+            link.style.pointerEvents = "auto";
+            link.style.transform = "translateY(0)";
+        }, 800);
+
+        setTimeout(() => {
+            signature.style.opacity = 1;
+        }, 1500);
+    }
+
+    function showMessage() {
+        alert("You are the most beautiful person, inside and out. Your 'akusikma' will always make my heart skip a beat! 💕");
+    }
+
+    // Fungsi untuk membuat gambar bisa di-drag
+    function makeDraggable(img) {
+        let isDragging = false;
+        let currentX;
+        let currentY;
+        let initialX;
+        let initialY;
+        let xOffset = 0;
+        let yOffset = 0;
+
+        // Event untuk mouse
+        img.addEventListener('mousedown', startDragging);
+        img.addEventListener('touchstart', startDragging, { passive: false });
+
+        function startDragging(e) {
+            e.preventDefault();
+            img.classList.add('dragging');
+            img.style.position = 'absolute';
+
+            if (e.type === 'touchstart') {
+                initialX = e.touches[0].clientX - xOffset;
+                initialY = e.touches[0].clientY - yOffset;
+            } else {
+                initialX = e.clientX - xOffset;
+                initialY = e.clientY - yOffset;
+            }
+
+            isDragging = true;
+
+            // Tambahkan event listener untuk mousemove dan touchmove
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('touchmove', drag, { passive: false });
+            document.addEventListener('mouseup', stopDragging);
+            document.addEventListener('touchend', stopDragging);
+        }
+
+        function drag(e) {
+            if (isDragging) {
+                e.preventDefault();
+                if (e.type === 'touchmove') {
+                    currentX = e.touches[0].clientX - initialX;
+                    currentY = e.touches[0].clientY - initialY;
+                } else {
+                    currentX = e.clientX - initialX;
+                    currentY = e.clientY - initialY;
+                }
+
+                xOffset = currentX;
+                yOffset = currentY;
+
+                img.style.left = currentX + 'px';
+                img.style.top = currentY + 'px';
+            }
+        }
+
+        function stopDragging() {
+            isDragging = false;
+            img.classList.remove('dragging');
+            document.removeEventListener('mousemove', drag);
+            document.removeEventListener('touchmove', drag);
+            document.removeEventListener('mouseup', stopDragging);
+            document.removeEventListener('touchend', stopDragging);
+        }
+    }
+</script>
+</body>
+</html>
