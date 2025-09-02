@@ -277,7 +277,7 @@
             
             .letter {
                 width: 95%;
-                padding: 25px 20px 70px 20px;
+                padding: 25px 20px 50px 20px; /* --- PERBAIKAN --- Padding bawah dikurangi */
                 min-height: auto;
                 font-size: 1rem;
                 line-height: 1.6;
@@ -295,13 +295,11 @@
                 bottom: 8px;
             }
             
-            /* ===== BAGIAN YANG DIPERBAIKI ===== */
             .signature {
                 font-size: 0.95rem;
-                margin-top: 15px; /* Margin atas tetap ada */
+                margin-top: 0; /* --- PERBAIKAN --- Margin atas dihapus, jarak diatur oleh tombol */
                 line-height: 1.2;
                 transform: rotate(-1deg);
-                /* Properti yang menyebabkan tidak center dihapus (right, bottom, left, max-width) */
             }
             
             .music-control {
@@ -327,7 +325,7 @@
             .cta-link {
                 width: 90%;
                 max-width: 280px;
-                margin: 25px auto 15px auto;
+                margin: 35px auto 25px auto; /* --- PERBAIKAN --- Margin atas dan bawah ditambah */
                 padding: 12px 15px;
                 font-size: 0.9rem;
             }
@@ -342,7 +340,7 @@
             
             .signature {
                 font-size: 0.85rem;
-                margin-top: 12px;
+                margin-top: 0; /* --- PERBAIKAN --- Disesuaikan juga untuk layar sangat kecil */
                 transform: rotate(-1deg);
             }
             
@@ -358,7 +356,7 @@
             .cta-link {
                 width: 95%;
                 max-width: 250px;
-                margin: 20px auto 12px auto;
+                margin: 30px auto 20px auto; /* --- PERBAIKAN --- Margin disesuaikan */
                 padding: 10px 15px;
                 font-size: 0.85rem;
             }
@@ -602,6 +600,3 @@ To me, you're not just cool and beautiful you're Sikma. A one of a kind soul tha
 </script>
 </body>
 </html>
-
-
-
