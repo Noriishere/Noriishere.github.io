@@ -144,7 +144,6 @@
             margin: 20px 0;
         }
 
-        /* Floral border decoration */
         .letter::before {
             content: "🌸 🌺 🌸 🌺 🌸 🌺 🌸 🌺 🌸 🌺";
             position: absolute;
@@ -278,7 +277,7 @@
             
             .letter {
                 width: 95%;
-                padding: 25px 20px 70px 20px; /* Padding khusus mobile */
+                padding: 25px 20px 70px 20px;
                 min-height: auto;
                 font-size: 1rem;
                 line-height: 1.6;
@@ -296,15 +295,13 @@
                 bottom: 8px;
             }
             
+            /* ===== BAGIAN YANG DIPERBAIKI ===== */
             .signature {
                 font-size: 0.95rem;
-                bottom: 15px;
-                right: 15px;
-                left: auto;
+                margin-top: 15px; /* Margin atas tetap ada */
                 line-height: 1.2;
-                max-width: 150px;
-                word-wrap: break-word;
                 transform: rotate(-1deg);
+                /* Properti yang menyebabkan tidak center dihapus (right, bottom, left, max-width) */
             }
             
             .music-control {
@@ -333,12 +330,6 @@
                 margin: 25px auto 15px auto;
                 padding: 12px 15px;
                 font-size: 0.9rem;
-            }
-            
-            .signature {
-                font-size: 0.95rem;
-                margin-top: 15px;
-                transform: rotate(-1deg);
             }
         }
 
@@ -371,45 +362,31 @@
                 padding: 10px 15px;
                 font-size: 0.85rem;
             }
-            
-            .signature {
-                font-size: 0.85rem;
-                margin-top: 12px;
-                transform: rotate(-1deg);
-            }
         }
     </style>
 </head>
 <body>
-    <!-- Music control button -->
     <div class="music-control" id="musicControl" onclick="toggleMusic()">
         <span id="musicIcon">🎵</span>
     </div>
-
-    <!-- Hidden audio element -->
     <audio id="backgroundMusic" loop preload="auto">
         <source src="sempurna.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
-
     <div class="intro" id="introText">
         There's something magical I need to tell you... 🌸
     </div>
     <button class="btn" onclick="showLetter()">Open My Heart</button>
-    
     <div class="letter" id="letterBox">
         <p id="typedText"></p>
-        
         <div class="photo-gallery" id="photoGallery">
             <img src="1.jpg" alt="Beautiful 1">
             <img src="2.jpg" alt="Beautiful 2">
             <img src="3.jpg" alt="Beautiful 3">
         </div>
-        
         <a href="deskripsi.html" class="cta-link" id="descriptionLink" onclick="showMessage()">
-        💕 CLICK HERE 💕
+            💕 CLICK HERE 💕
         </a>
-        
         <div class="signature" id="signature" style="opacity: 0;">
             With all my love 💖<br>
             This present is for youuu!!!!
@@ -422,7 +399,6 @@
     const musicIcon = document.getElementById('musicIcon');
     let isMusicPlaying = false;
 
-    // Debugging untuk memeriksa status pemuatan audio
     backgroundMusic.addEventListener('loadeddata', () => {
         console.log('Audio file loaded successfully');
     });
@@ -430,10 +406,8 @@
         console.error('Error loading audio file:', e);
     });
 
-    // Atur volume audio
     backgroundMusic.volume = 1.0;
 
-    // Create floating petals
     function createPetal() {
         const petal = document.createElement('div');
         petal.classList.add('petal');
@@ -446,11 +420,8 @@
             petal.remove();
         }, 8000);
     }
-
-    // Create petals continuously
     setInterval(createPetal, 300);
 
-    // Fungsi untuk mengontrol musik
     function toggleMusic() {
         if (!isMusicPlaying) {
             backgroundMusic.play().then(() => {
@@ -502,7 +473,6 @@ To me, you're not just cool and beautiful you're Sikma. A one of a kind soul tha
             const typedText = document.getElementById("typedText");
             letterBox.style.display = "block";
 
-            // Putar musik saat surat ditampilkan
             if (!isMusicPlaying) {
                 toggleMusic();
             }
@@ -537,7 +507,6 @@ To me, you're not just cool and beautiful you're Sikma. A one of a kind soul tha
                 const photo = photos[photoIndex];
                 photo.style.opacity = 1;
                 photo.style.transform = "scale(1) rotate(0deg)";
-                // Tambahkan event listener untuk drag setelah animasi selesai
                 setTimeout(() => {
                     makeDraggable(photo);
                 }, 1000);
@@ -569,7 +538,6 @@ To me, you're not just cool and beautiful you're Sikma. A one of a kind soul tha
         alert("You are the most beautiful person, inside and out. Your 'akusikma' will always make my heart skip a beat! 💕");
     }
 
-    // Fungsi untuk membuat gambar bisa di-drag
     function makeDraggable(img) {
         let isDragging = false;
         let currentX;
@@ -579,7 +547,6 @@ To me, you're not just cool and beautiful you're Sikma. A one of a kind soul tha
         let xOffset = 0;
         let yOffset = 0;
 
-        // Event untuk mouse
         img.addEventListener('mousedown', startDragging);
         img.addEventListener('touchstart', startDragging, { passive: false });
 
@@ -598,7 +565,6 @@ To me, you're not just cool and beautiful you're Sikma. A one of a kind soul tha
 
             isDragging = true;
 
-            // Tambahkan event listener untuk mousemove dan touchmove
             document.addEventListener('mousemove', drag);
             document.addEventListener('touchmove', drag, { passive: false });
             document.addEventListener('mouseup', stopDragging);
