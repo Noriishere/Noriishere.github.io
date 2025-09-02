@@ -18,14 +18,9 @@
             min-height: 100vh;
             padding: 20px;
             position: relative;
-            overflow-y: auto; /* Enable vertical scrolling */
-            /* Properti flexbox di bawah ini dihapus agar scrolling berfungsi */
-            /* display: flex; */
-            /* flex-direction: column; */
-            /* align-items: center; */
+            overflow-y: auto;
         }
 
-        /* Animated background particles */
         #particles {
             position: fixed;
             top: 0;
@@ -33,7 +28,7 @@
             width: 100%;
             height: 100vh;
             pointer-events: none;
-            z-index: -1; /* Pastikan partikel di belakang konten */
+            z-index: -1;
         }
 
         .particle {
@@ -65,7 +60,7 @@
         .container {
             max-width: 900px;
             width: 100%;
-            margin: 40px auto; /* DITAMBAHKAN: Untuk menengahkan container */
+            margin: 40px auto;
             background: rgba(255, 255, 255, 0.95);
             border-radius: 25px;
             padding: 40px;
@@ -120,36 +115,21 @@
             text-align: center;
         }
 
-        .draggable-photo {
+        .static-photo { /* Nama class diubah dari draggable-photo */
             width: 300px;
             height: 300px;
             border-radius: 20px;
             object-fit: cover;
-            cursor: grab;
             transition: all 0.3s ease;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
             border: 5px solid #667eea;
             user-select: none;
             position: relative;
-            z-index: 10;
         }
 
-        .draggable-photo:hover {
+        .static-photo:hover { /* Efek hover tetap ada */
             transform: scale(1.05) rotate(2deg);
             box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
-        }
-
-        .draggable-photo:active {
-            cursor: grabbing;
-            transform: scale(1.1) rotate(5deg);
-        }
-
-        .photo-hint {
-            margin-top: 15px;
-            color: #667eea;
-            font-size: 0.9rem;
-            opacity: 0.8;
-            font-style: italic;
         }
 
         .description {
@@ -208,11 +188,10 @@
             font-style: italic;
         }
 
-        /* Mobile responsiveness */
         @media (max-width: 768px) {
             .container {
                 padding: 20px;
-                margin: 10px auto; /* Disesuaikan untuk mobile */
+                margin: 10px auto;
             }
             
             .header h1 {
@@ -224,7 +203,7 @@
                 gap: 30px;
             }
             
-            .draggable-photo {
+            .static-photo {
                 width: 250px;
                 height: 250px;
             }
@@ -243,7 +222,6 @@
             }
         }
 
-        /* Special effects */
         .glow {
             animation: glow 2s ease-in-out infinite alternate;
         }
@@ -257,14 +235,6 @@
             }
         }
 
-        /* Dragging effects */
-        .dragging {
-            transform: scale(1.1) rotate(10deg) !important;
-            box-shadow: 0 25px 50px rgba(102, 126, 234, 0.5) !important;
-            z-index: 1000;
-        }
-
-        /* Music control button */
         .music-control {
             position: fixed;
             top: 20px;
@@ -308,7 +278,6 @@
             }
         }
 
-        /* Back button */
         .cta-link {
             display: block;
             width: fit-content;
@@ -356,14 +325,9 @@
                 <img 
                     src="4.jpg" 
                     alt="Beautiful Soul" 
-                    class="draggable-photo glow" 
-                    id="draggablePhoto"
-                    draggable="true"
+                    class="static-photo glow" 
                 >
-                <div class="photo-hint">
-                    🖱️ Klik dan drag foto ini ke mana saja!
                 </div>
-            </div>
 
             <div class="description">
                 <h2>
@@ -398,8 +362,6 @@
                 particle.remove();
             }, 6000);
         }
-
-        // Create particles less frequently for better performance
         setInterval(createParticle, 500);
 
         // Music control
@@ -408,7 +370,6 @@
         const musicIcon = document.getElementById('musicIcon');
         let isMusicPlaying = false;
 
-        // Debugging for audio loading
         backgroundMusic.addEventListener('loadeddata', () => {
             console.log('Audio file loaded successfully');
         });
@@ -416,7 +377,6 @@
             console.error('Error loading audio file:', e);
         });
 
-        // Set audio volume
         backgroundMusic.volume = 1.0;
 
         function toggleMusic() {
@@ -438,144 +398,8 @@
             }
         }
 
-        // Draggable photo functionality
-        const photo = document.getElementById('draggablePhoto');
-        let isDragging = false;
-        let startX, startY, initialX, initialY;
+        // SEMUA KODE JAVASCRIPT UNTUK DRAG FOTO DIHAPUS DARI SINI
 
-        // Mouse events
-        photo.addEventListener('mousedown', startDrag);
-        document.addEventListener('mousemove', drag);
-        document.addEventListener('mouseup', endDrag);
-
-        // Touch events for mobile
-        photo.addEventListener('touchstart', startDragTouch);
-        document.addEventListener('touchmove', dragTouch);
-        document.addEventListener('touchend', endDrag);
-
-        function startDrag(e) {
-            isDragging = true;
-            photo.classList.add('dragging');
-            
-            startX = e.clientX;
-            startY = e.clientY;
-            
-            const rect = photo.getBoundingClientRect();
-            initialX = rect.left;
-            initialY = rect.top;
-            
-            photo.style.position = 'fixed';
-            photo.style.left = initialX + 'px';
-            photo.style.top = initialY + 'px';
-            photo.style.zIndex = '1000';
-
-            // Play music when photo is dragged (if not already playing)
-            if (!isMusicPlaying) {
-                toggleMusic();
-            }
-        }
-
-        function startDragTouch(e) {
-            e.preventDefault();
-            const touch = e.touches[0];
-            isDragging = true;
-            photo.classList.add('dragging');
-            
-            startX = touch.clientX;
-            startY = touch.clientY;
-            
-            const rect = photo.getBoundingClientRect();
-            initialX = rect.left;
-            initialY = rect.top;
-            
-            photo.style.position = 'fixed';
-            photo.style.left = initialX + 'px';
-            photo.style.top = initialY + 'px';
-            photo.style.zIndex = '1000';
-
-            // Play music when photo is dragged (if not already playing)
-            if (!isMusicPlaying) {
-                toggleMusic();
-            }
-        }
-
-        function drag(e) {
-            if (!isDragging) return;
-            
-            e.preventDefault();
-            const deltaX = e.clientX - startX;
-            const deltaY = e.clientY - startY;
-            
-            // Constrain photo within viewport
-            const maxX = window.innerWidth - photo.offsetWidth;
-            const maxY = window.innerHeight - photo.offsetHeight;
-            let newX = initialX + deltaX;
-            let newY = initialY + deltaY;
-            
-            newX = Math.max(0, Math.min(newX, maxX));
-            newY = Math.max(0, Math.min(newY, maxY));
-            
-            photo.style.left = newX + 'px';
-            photo.style.top = newY + 'px';
-        }
-
-        function dragTouch(e) {
-            if (!isDragging) return;
-            
-            e.preventDefault();
-            const touch = e.touches[0];
-            const deltaX = touch.clientX - startX;
-            const deltaY = touch.clientY - startY;
-            
-            // Constrain photo within viewport
-            const maxX = window.innerWidth - photo.offsetWidth;
-            const maxY = window.innerHeight - photo.offsetHeight;
-            let newX = initialX + deltaX;
-            let newY = initialY + deltaY;
-            
-            newX = Math.max(0, Math.min(newX, maxX));
-            newY = Math.max(0, Math.min(newY, maxY));
-            
-            photo.style.left = newX + 'px';
-            photo.style.top = newY + 'px';
-        }
-
-        function endDrag() {
-            if (!isDragging) return;
-            
-            isDragging = false;
-            photo.classList.remove('dragging');
-            
-            // Add bounce effect when dropped
-            photo.style.transition = 'all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
-            photo.style.transform = 'scale(1.1)';
-            setTimeout(() => {
-                photo.style.transform = 'scale(1)';
-                photo.style.transition = 'all 0.3s ease';
-            }, 200);
-        }
-
-        // Add interactive hover effects
-        photo.addEventListener('mouseenter', () => {
-            if (!isDragging) {
-                photo.style.filter = 'brightness(1.1) saturate(1.2)';
-            }
-        });
-
-        photo.addEventListener('mouseleave', () => {
-            if (!isDragging) {
-                photo.style.filter = 'none';
-            }
-        });
-
-        // Double click to reset position
-        photo.addEventListener('dblclick', () => {
-            photo.style.position = 'relative';
-            photo.style.left = 'auto';
-            photo.style.top = 'auto';
-            photo.style.zIndex = '10';
-            photo.style.transform = 'scale(1)';
-        });
     </script>
 </body>
 </html>
