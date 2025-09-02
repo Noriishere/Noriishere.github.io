@@ -139,8 +139,9 @@
             white-space: pre-wrap;
             overflow-wrap: break-word;
             font-family: "Times New Roman", Georgia, serif;
-            overflow-y: auto;
+            overflow-y: visible;
             border: 3px solid #ff6b9d;
+            margin: 20px 0;
         }
 
         /* Floral border decoration */
@@ -170,41 +171,19 @@
         }
 
         .signature {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            font-size: 1.3rem;
+            position: relative;
+            margin-top: 20px;
+            margin-left: auto;
+            margin-right: 0;
+            width: fit-content;
+            font-size: 1.2rem;
             color: #c44569;
             font-weight: bold;
             transform: rotate(-2deg);
             transition: opacity 2s ease-in-out;
             font-style: italic;
-        }
-
-        @media (max-width: 600px) {
-            body {
-                padding: 0 15px;
-            }
-            .intro {
-                font-size: 1.3rem;
-            }
-            .letter {
-                width: 95%;
-                padding: 30px 25px;
-                min-height: 80vh;
-                font-size: 1.1rem;
-                line-height: 1.7;
-            }
-            .signature {
-                font-size: 1.1rem;
-                bottom: 15px;
-                right: 15px;
-            }
-            .music-control {
-                width: 50px;
-                height: 50px;
-                font-size: 1.2rem;
-            }
+            text-align: right;
+            line-height: 1.3;
         }
 
         .photo-gallery {
@@ -227,8 +206,8 @@
             opacity: 0;
             transform: scale(0.8) rotate(-5deg);
             transition: opacity 1s ease, transform 1s ease;
-            cursor: move; /* Menunjukkan bahwa gambar bisa di-drag */
-            position: relative; /* Awalnya relatif, akan berubah ke absolut saat di-drag */
+            cursor: move;
+            position: relative;
             z-index: 10;
         }
 
@@ -242,7 +221,7 @@
 
         .photo-gallery img.dragging {
             position: absolute;
-            transform: none !important; /* Menghapus rotasi saat di-drag */
+            transform: none !important;
             opacity: 0.9;
             z-index: 100;
         }
@@ -250,7 +229,7 @@
         .cta-link {
             display: block;
             width: fit-content;
-            margin: 30px auto;
+            margin: 30px auto 20px auto;
             padding: 15px 30px;
             background: linear-gradient(45deg, #ff6b9d, #c44569);
             color: #fff;
@@ -265,6 +244,7 @@
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 1px;
+            max-width: calc(100% - 40px);
         }
 
         .heart {
@@ -276,6 +256,114 @@
         @keyframes heartbeat {
             to {
                 transform: scale(1.1);
+            }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+                min-height: 100vh;
+                overflow-y: auto;
+            }
+            
+            .intro {
+                font-size: 1.3rem;
+                margin-bottom: 20px;
+                padding: 0 10px;
+            }
+            
+            .btn {
+                padding: 12px 25px;
+                font-size: 1rem;
+            }
+            
+            .letter {
+                width: 95%;
+                padding: 25px 20px 70px 20px; /* Padding khusus mobile */
+                min-height: auto;
+                font-size: 1rem;
+                line-height: 1.6;
+                margin: 10px 0;
+                border-radius: 15px;
+            }
+            
+            .letter::before {
+                font-size: 1.2rem;
+                top: 8px;
+            }
+            
+            .letter::after {
+                font-size: 1.2rem;
+                bottom: 8px;
+            }
+            
+            .signature {
+                font-size: 0.95rem;
+                bottom: 15px;
+                right: 15px;
+                left: auto;
+                line-height: 1.2;
+                max-width: 150px;
+                word-wrap: break-word;
+                transform: rotate(-1deg);
+            }
+            
+            .music-control {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+                top: 15px;
+                right: 15px;
+            }
+            
+            .photo-gallery {
+                gap: 15px;
+                margin: 20px 0;
+                padding: 15px 0;
+            }
+            
+            .photo-gallery img {
+                width: 100px;
+                height: 100px;
+                border: 3px solid #ff6b9d;
+            }
+            
+            .cta-link {
+                margin: 25px auto 15px auto;
+                padding: 12px 25px;
+                font-size: 0.9rem;
+                max-width: calc(100% - 20px);
+            }
+        }
+
+        @media (max-width: 400px) {
+            .letter {
+                width: 98%;
+                padding: 20px 15px;
+                font-size: 0.95rem;
+            }
+            
+            .signature {
+                font-size: 0.85rem;
+                margin-top: 12px;
+                transform: rotate(-1deg);
+            }
+            
+            .photo-gallery img {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .intro {
+                font-size: 1.1rem;
+            }
+            
+            .cta-link {
+                margin: 20px auto 12px auto;
+                padding: 10px 20px;
+                font-size: 0.85rem;
+                max-width: calc(100% - 10px);
             }
         }
     </style>
@@ -372,15 +460,15 @@
 
     const message = `My Dearest Cool & Beautiful Ayashiii,
 
-Every time I look at you, I get caught between awe and admiration. You have that rare kind of beauty that doesn’t just stop at appearances it’s in the way you carry yourself, with confidence so natural yet so captivating.
+Every time I look at you, I get caught between awe and admiration. You have that rare kind of beauty that doesn't just stop at appearances it's in the way you carry yourself, with confidence so natural yet so captivating.
 
-Your smile? Stunning. Your gaze? Sharp, yet warm enough to melt away the coldest silence. There’s a cool aura about you, like you know exactly who you are and don’t need the world’s validation and honestly, that makes you even more irresistible.
+Your smile? Stunning. Your gaze? Sharp, yet warm enough to melt away the coldest silence. There's a cool aura about you, like you know exactly who you are and don't need the world's validation and honestly, that makes you even more irresistible.
 
-And then there’s “akusikma.” The way you say it feels like a signature, a mark that’s completely yours. It’s not just a word anymore it’s you: cool, beautiful, and unforgettable.
+And then there's "akusikma." The way you say it feels like a signature, a mark that's completely yours. It's not just a word anymore it's you: cool, beautiful, and unforgettable.
 
-What amazes me most isn’t just your beauty, but the effortless balance you hold you’re calm yet striking, elegant yet approachable. Every moment with you feels like I’m standing in the presence of someone rare, someone truly unforgettable.
+What amazes me most isn't just your beauty, but the effortless balance you hold you're calm yet striking, elegant yet approachable. Every moment with you feels like I'm standing in the presence of someone rare, someone truly unforgettable.
 
-To me, you’re not just cool and beautiful you’re Sikma. A one of a kind soul that I wouldn’t trade for anything in this world.
+To me, you're not just cool and beautiful you're Sikma. A one of a kind soul that I wouldn't trade for anything in this world.
 
 ♥`;
 
@@ -394,7 +482,7 @@ To me, you’re not just cool and beautiful you’re Sikma. A one of a kind soul
         setTimeout(() => {
             introText.style.display = "none";
             readButton.style.display = "none";
-            musicControl.style.display = "flex"; // Tampilkan tombol musik
+            musicControl.style.display = "flex";
         }, 1000);
 
         setTimeout(() => {
